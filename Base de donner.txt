@@ -1,0 +1,387 @@
+Microsoft Windows [Version 10.0.26200.9974]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\hp>sqlcmd -S localhost -E -C
+1> SELECT name FROM sys.databases;
+2> GO
+name
+--------------------------------------------------------------------------------------------------------------------------------
+master
+tempdb
+model
+msdb
+MyFirstDatabase
+
+(5 rows affected)
+1> USE MyfirstDatabase;
+2> GO
+Changed database context to 'MyFirstDatabase'.
+1> SELECT name
+2> FROM sys.tables;
+3> GO
+name
+--------------------------------------------------------------------------------------------------------------------------------
+
+(0 rows affected)
+1> CREATE TABLE etudiants (
+2>     id INT AUTO_INCREMENT PRIMARY KEY,
+3>     nom VARCHAR(100) NOT NULL,
+4>     prenom VARCHAR(100) NOT NULL,
+5>     age INT,
+6>     email VARCHAR(150)
+7> );
+8> GO
+Msg 102, Level 15, State 1, Server book-AN, Line 2
+Incorrect syntax near 'AUTO_INCREMENT'.
+1> CREATE TABLE etudiants (
+2>      id INT AUTO_INCREMENT PRIMARY KEY,
+3>      nom VARCHAR(100) NOT NULL,
+4>      prenom VARCHAR(100) NOT NULL,
+5>      age INT,
+6>      email VARCHAR(150)
+7>  )
+8> CREATE TABLE Client (
+9>     IdClient INT IDENTITY(1,1) PRIMARY KEY,
+10>     Nom VARCHAR(100) NOT NULL,
+11>     Prenom VARCHAR(100),
+12>     Telephone VARCHAR(20),
+13>     Email VARCHAR(100),
+14>     Ville VARCHAR(50)
+15> );
+16> GO
+Msg 102, Level 15, State 1, Server book-AN, Line 2
+Incorrect syntax near 'AUTO_INCREMENT'.
+1> CREATE TABLE Produit (
+2>     IdProduit INT IDENTITY(1,1) PRIMARY KEY,
+3>     NomProduit VARCHAR(100) NOT NULL,
+4>     Prix DECIMAL(10,2),
+5>     Stock INT
+6> );
+7> GO
+1> CREATE TABLE Commande (
+2>     IdCommande INT IDENTITY(1,1) PRIMARY KEY,
+3>     DateCommande DATE,
+4>     IdClient INT,
+5>     FOREIGN KEY (IdClient) REFERENCES Client(IdClient)
+6> );
+7> GO
+Msg 1767, Level 16, State 1, Server book-AN, Line 1
+Foreign key 'FK__Commande__IdClie__4CA06362' references invalid table 'Client'.
+Msg 1750, Level 16, State 1, Server book-AN, Line 1
+Could not create constraint or index. See previous errors.
+1> CREATE TABLE Produit (
+2>     IdProduit INT IDENTITY(1,1) PRIMARY KEY,
+3>     NomProduit VARCHAR(100) NOT NULL,
+4>     Prix DECIMAL(10,2),
+5>     Stock INT
+6> );
+7> GO
+Msg 2714, Level 16, State 6, Server book-AN, Line 1
+There is already an object named 'Produit' in the database.
+1> CREATE TABLE Commande (
+2>     IdCommande INT IDENTITY(1,1) PRIMARY KEY,
+3>     DateCommande DATE,
+4>     IdClient INT,
+5>     FOREIGN KEY (IdClient) REFERENCES Client(IdClient)
+6> );
+7> GO
+Msg 1767, Level 16, State 1, Server book-AN, Line 1
+Foreign key 'FK__Commande__IdClie__5070F446' references invalid table 'Client'.
+Msg 1750, Level 16, State 1, Server book-AN, Line 1
+Could not create constraint or index. See previous errors.
+1> SELECT * FROM sys.tables;
+2> GO
+name                                                                                                                             object_id   principal_id schema_id   parent_object_id type type_desc                                                    create_date             modify_date             is_ms_shipped is_published is_schema_published lob_data_space_id filestream_data_space_id max_column_id_used lock_on_bulk_load uses_ansi_nulls is_replicated has_replication_filter is_merge_published is_sync_tran_subscribed has_unchecked_assembly_data text_in_row_limit large_value_types_out_of_row is_tracked_by_cdc lock_escalation lock_escalation_desc                                         is_filetable is_memory_optimized durability durability_desc                                              temporal_type temporal_type_desc                                           history_table_id is_remote_data_archive_enabled is_external history_retention_period history_retention_period_unit history_retention_period_unit_desc is_node is_edge data_retention_period data_retention_period_unit data_retention_period_unit_desc ledger_type ledger_type_desc                                             ledger_view_id is_dropped_ledger_table
+-------------------------------------------------------------------------------------------------------------------------------- ----------- ------------ ----------- ---------------- ---- ------------------------------------------------------------ ----------------------- ----------------------- ------------- ------------ ------------------- ----------------- ------------------------ ------------------ ----------------- --------------- ------------- ---------------------- ------------------ ----------------------- --------------------------- ----------------- ---------------------------- ----------------- --------------- ------------------------------------------------------------ ------------ ------------------- ---------- ------------------------------------------------------------ ------------- ------------------------------------------------------------ ---------------- ------------------------------ ----------- ------------------------ ----------------------------- ---------------------------------- ------- ------- --------------------- -------------------------- ------------------------------- ----------- ------------------------------------------------------------ -------------- -----------------------
+Produit                                                                                                                           1221579390         NULL           1                0 U    USER_TABLE                                                   2026-11-18 18:58:40.927 2026-11-18 18:58:40.927             0            0                   0                 0                     NULL                  4                 0               1             0                      0                  0                       0                           0                 0                            0                 0               0 TABLE                                                                   0                   0          0 SCHEMA_AND_DATA                                                          0 NON_TEMPORAL_TABLE                          CREATE TABLE Commande (      NULL                              0           0                     NULL                          NULL NULL
+2>     IdCommande INT IDENTITY(1,1) PRIMARY KEY,              -1 INFINITE                                  0 NON_LEDGER_TABLE
+3>     DateCommande DATE,            0
+4>     IdClient INT,
+5>     FOREIGN KEY (IdClient) REFERENCES Client(IdClient)
+6> );
+7> GO
+Msg 1767, Level 16, State 1, Server book-AN, Line 1
+Foreign key 'FK__Commande__IdClie__534D60F1' references invalid table 'Client'.
+Msg 1750, Level 16, State 1, Server book-AN, Line 1
+Could not create constraint or index. See previous errors.
+1> DROP DATABASE MyFirstDataBase;
+2> GO
+Msg 3702, Level 16, State 3, Server book-AN, Line 1
+Cannot drop database "MyFirstDataBase" because it is currently in use.
+1> SELECT name FROM sys.databases;
+2> GO
+name
+--------------------------------------------------------------------------------------------------------------------------------
+master
+tempdb
+model
+msdb
+MyFirstDatabase
+
+(5 rows affected)
+1> DROP DATABASE MyFirstDataBase;
+2> GO
+Msg 3702, Level 16, State 3, Server book-AN, Line 1
+Cannot drop database "MyFirstDataBase" because it is currently in use.
+1> USE master;
+2> GO
+Changed database context to 'master'.
+1> DROP DATABASE MyFirstDataBase;
+2> GO
+1>
+2>
+3> SELECT name FROM sys.databases;
+4> GO
+name
+--------------------------------------------------------------------------------------------------------------------------------
+master
+tempdb
+model
+msdb
+
+(4 rows affected)
+1> CREATE DATABASE MyDatabase;
+2> GO
+1> SELECT name FROM sys.databases;
+2> GO
+name
+--------------------------------------------------------------------------------------------------------------------------------
+master
+tempdb
+model
+msdb
+MyDatabase
+
+(5 rows affected)
+1> USE Database;
+2> GO
+Msg 156, Level 15, State 1, Server book-AN, Line 1
+Incorrect syntax near the keyword 'Database'.
+1> USE MyDatabase;
+2> GO
+Changed database context to 'MyDatabase'.
+1> CREATE TABLE Client (
+2>     IdClient INT IDENTITY(1,1) PRIMARY KEY,
+3>     Nom VARCHAR(100) NOT NULL,
+4>     Prenom VARCHAR(100),
+5>     Telephone VARCHAR(20),
+6>     Email VARCHAR(100),
+7>     Ville VARCHAR(50)
+8> );
+9> GO
+1> CREATE TABLE Produit (
+2>     IdProduit INT IDENTITY(1,1) PRIMARY KEY,
+3>     NomProduit VARCHAR(100) NOT NULL,
+4>     Prix DECIMAL(10,2),
+5>     Stock INT
+6> );
+7> GO
+1> CREATE TABLE Commande (
+2>     IdCommande INT IDENTITY(1,1) PRIMARY KEY,
+3>     DateCommande DATE,
+4>     IdClient INT,
+5>     FOREIGN KEY (IdClient) REFERENCES Client(IdClient)
+6> );
+7> GO
+1> INSERT INTO Client (Nom, Prenom, Telephone, Email, Ville)
+2> VALUES
+3> ('Ndiaye', 'Moussa', '770000001', 'moussa@gmail.com', 'Dakar'),
+4> ('Diop', 'Fatou', '770000002', 'fatou@gmail.com', 'Thies'),
+5> ('Fall', 'Alioune', '770000003', 'alioune@gmail.com', 'Dakar'),
+6> ('Sow', 'Aminata', '770000004', 'aminata@gmail.com', 'Rufisque'),
+7> ('Ba', 'Mamadou', '770000005', 'mamadou@gmail.com', 'Dakar');
+8> GO
+
+(5 rows affected)
+1> SELECT * FROM Client;
+2> GO
+IdClient    Nom                                                                                                  Prenom                                                                                               Telephone            Email                                                                                                Ville
+----------- ---------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------------------- -------------------- ---------------------------------------------------------------------------------------------------- --------------------------------------------------
+          1 Ndiaye                                                                                               Moussa                                                                                               770000001            moussa@gmail.com                                                                                     Dakar
+          2 Diop                                                                                                 Fatou                                                                                                770000002            fatou@gmail.com                                                                                      Thies
+          3 Fall                                                                                                 Alioune                                                                                              770000003            alioune@gmail.com                                                                                    Dakar
+          4 Sow                                                                                                  Aminata                                                                                              770000004            aminata@gmail.com                                                                                    Rufisque
+          5 Ba                                                                                                   Mamadou                                                                                              770000005            mamadou@gmail.com                                                                                    Dakar
+
+(5 rows affected)
+1> INSERT INTO Produit (NomProduit, Prix, Stock)
+2> VALUES
+3> ('Ordinateur HP', 350000, 10),
+4> ('Souris Logitech', 12000, 30),
+5> ('Clavier USB', 15000, 20),
+6> ('Ecran Samsung', 125000, 8),
+7> ('Imprimante Canon', 180000, 5);
+8> GO
+
+(5 rows affected)
+1> INSERT INTO Commande (DateCommande, IdClient)
+2> VALUES
+3> ('2026-11-01', 1),
+4> ('2026-11-02', 2),
+5> ('2026-11-03', 1),
+6> ('2026-11-04', 3),
+7> ('2026-11-05', 4);
+8> GO
+
+(5 rows affected)
+1> SELECT * FROM Produit;
+2> GO
+IdProduit   NomProduit                                                                                           Prix         Stock
+----------- ---------------------------------------------------------------------------------------------------- ------------ -----------
+          1 Ordinateur HP                                                                                           350000.00          10
+          2 Souris Logitech                                                                                          12000.00          30
+          3 Clavier USB                                                                                              15000.00          20
+          4 Ecran Samsung                                                                                           125000.00           8
+          5 Imprimante Canon                                                                                        180000.00           5
+
+(5 rows affected)
+1> SELECT * FROM Commande;
+2> GO
+IdCommande  DateCommande     IdClient
+----------- ---------------- -----------
+          1       2026-11-01           1
+          2       2026-11-02           2
+          3       2026-11-03           1
+          4       2026-11-04           3
+          5       2026-11-05           4
+
+(5 rows affected)
+1> SELECT  IdClient FROM Commande ;
+2> GO
+IdClient
+-----------
+          1
+          2
+          1
+          3
+          4
+
+(5 rows affected)
+1> UPDATE Produit SET Stock='5';
+2> UPDATE Produit SET Stock=5 WHERE IdProduit=1;
+3> GO
+
+(5 rows affected)
+
+(1 rows affected)
+1> SELECT * FROM Produit;
+2> GO
+IdProduit   NomProduit                                                                                           Prix         Stock
+----------- ---------------------------------------------------------------------------------------------------- ------------ -----------
+          1 Ordinateur HP                                                                                           350000.00           5
+          2 Souris Logitech                                                                                          12000.00           5
+          3 Clavier USB                                                                                              15000.00           5
+          4 Ecran Samsung                                                                                           125000.00           5
+          5 Imprimante Canon                                                                                        180000.00           5
+
+(5 rows affected)
+1> UPDATE Produit SET Stock=5 WHERE IdProduit=2;
+2> GO
+
+(1 rows affected)
+1> SELECT * FROM Produit;
+2> GO
+IdProduit   NomProduit                                                                                           Prix         Stock
+----------- ---------------------------------------------------------------------------------------------------- ------------ -----------
+          1 Ordinateur HP                                                                                           350000.00           5
+          2 Souris Logitech                                                                                          12000.00           5
+          3 Clavier USB                                                                                              15000.00           5
+          4 Ecran Samsung                                                                                           125000.00           5
+          5 Imprimante Canon                                                                                        180000.00           5
+
+(5 rows affected)
+1> UPDATE Produit SET Stock=6 WHERE IdProduit=1;
+2> GO
+
+(1 rows affected)
+1> SELECT * FROM Produit;
+2> GO
+IdProduit   NomProduit                                                                                           Prix         Stock
+----------- ---------------------------------------------------------------------------------------------------- ------------ -----------
+          1 Ordinateur HP                                                                                           350000.00           6
+          2 Souris Logitech                                                                                          12000.00           5
+          3 Clavier USB                                                                                              15000.00           5
+          4 Ecran Samsung                                                                                           125000.00           5
+          5 Imprimante Canon                                                                                        180000.00           5
+
+(5 rows affected)
+1> UPDATE Produit SET Stock='5';
+2> GO
+
+(5 rows affected)
+1> SELECT * FROM Produit;
+2> GO
+IdProduit   NomProduit                                                                                           Prix         Stock
+----------- ---------------------------------------------------------------------------------------------------- ------------ -----------
+          1 Ordinateur HP                                                                                           350000.00           5
+          2 Souris Logitech                                                                                          12000.00           5
+          3 Clavier USB                                                                                              15000.00           5
+          4 Ecran Samsung                                                                                           125000.00           5
+          5 Imprimante Canon                                                                                        180000.00           5
+
+(5 rows affected)
+1> DELETE FROM Client
+2> WHERE IdClient = 5;
+3> GO
+
+(1 rows affected)
+1> SELECT * FROM Client;
+2> GO
+IdClient    Nom                                                                                                  Prenom                                                                                               Telephone            Email                                                                                                Ville
+----------- ---------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------------------- -------------------- ---------------------------------------------------------------------------------------------------- --------------------------------------------------
+          1 Ndiaye                                                                                               Moussa                                                                                               770000001            moussa@gmail.com                                                                                     Dakar
+          2 Diop                                                                                                 Fatou                                                                                                770000002            fatou@gmail.com                                                                                      Thies
+          3 Fall                                                                                                 Alioune                                                                                              770000003            alioune@gmail.com                                                                                    Dakar
+          4 Sow                                                                                                  Aminata                                                                                              770000004            aminata@gmail.com                                                                                    Rufisque
+
+(4 rows affected)
+1> SELECT * FROM Commande;
+2> GO
+IdCommande  DateCommande     IdClient
+----------- ---------------- -----------
+          1       2026-11-01           1
+          2       2026-11-02           2
+          3       2026-11-03           1
+          4       2026-11-04           3
+          5       2026-11-05           4
+
+(5 rows affected)
+1> DELETE FROM Commande WHERE IdClient = 5 ;
+2> GO
+
+(0 rows affected)
+1> SELECT * FROM Commande;
+2> GO
+IdCommande  DateCommande     IdClient
+----------- ---------------- -----------
+          1       2026-11-01           1
+          2       2026-11-02           2
+          3       2026-11-03           1
+          4       2026-11-04           3
+          5       2026-11-05           4
+
+(5 rows affected)
+1> DELETE FROM Commande WHERE IdCommande = 5 ;
+2> GO
+
+(1 rows affected)
+1> SELECT * FROM Commande;
+2> GO
+IdCommande  DateCommande     IdClient
+----------- ---------------- -----------
+          1       2026-11-01           1
+          2       2026-11-02           2
+          3       2026-11-03           1
+          4       2026-11-04           3
+
+(4 rows affected)
+1> SELECT IdCommande FROM Commande WHERE IdClient= 1;
+2> GO
+IdCommande
+-----------
+          1
+          3
+
+(2 rows affected)
+1>
+créé une nouvelle base de donnée nommée Etudiant avec une table Professeurs qui va contenir son Id, le nom , prénom, et la matiére qu’il enseigne . une deuxieme table Classe qui va contenir le nom , Id, rattacher l’id des professeurs . Une troisiéme table Etudiant qui va contenir id, nom, prenom , le ratacher a la table classe. en somme chaque professeurs doivent etre lier aux classes et les etudiants egalement doivent etre lier aux classes. pour Update : modifier le nom d’une classe where idprofesseur =1 ou 2 par ex. pour delete supprimer un prof et un etudiant
